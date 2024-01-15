@@ -1,0 +1,42 @@
+{
+  "extends": ["oclif", "oclif-typescript", "prettier"],
+  "rules": {
+    "unicorn/prefer-ternary": "off",
+    "unicorn/no-array-reduce": "off",
+    "no-useless-catch": "off",
+    "unicorn/switch-case-braces": ["error", "avoid"],
+    "perfectionist/sort-classes": [
+      "error",
+      {
+        "type": "natural",
+        "order": "asc",
+        "groups": [
+          "index-signature",
+          "static-property",
+          "private-property",
+          "property",
+          "constructor",
+          "method",
+          "static-method",
+          "private-method"
+        ]
+      }
+    ],
+    "perfectionist/sort-objects": [
+      "error",
+      {
+        "type": "natural",
+        "order": "asc"
+      }
+    ],
+    "unicorn/catch-error-name": [
+      "error",
+      {
+        "ignore": [
+          "^error\\d*$",
+          "^reason\\d*$"
+        ]
+      }
+    ]
+  }
+}

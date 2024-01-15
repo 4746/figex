@@ -1,0 +1,112 @@
+{
+  "name": "@cli107/figex",
+  "description": "Figma export svg",
+  "version": "0.0.2",
+  "author": "Vadim",
+  "keywords": [
+    "figma-export",
+    "cli",
+    "svg"
+  ],
+  "license": "MIT",
+  "bugs": "https://github.com/4746/figex/issues",
+  "homepage": "https://github.com/4746/figex",
+  "repository": "4746/figex",
+  "scripts": {
+    "build": "shx rm -rf dist && tsc -b",
+    "lint": "eslint . --ext .ts",
+    "postpack": "shx rm -f oclif.manifest.json",
+    "posttest": "npm run lint",
+    "prepack": "npm run build && oclif manifest && oclif readme",
+    "prepare": "npm run build",
+    "version": "oclif readme && git add README.md",
+    "manifest": "oclif manifest",
+    "readme": "oclif readme",
+    "npm:cache:clean": "npm cache clean --force",
+    "npm:pack": "npm run prepack && shx rm -rf package && shx mkdir package && npm pack --unsafe-perm --pack-destination=package",
+    "test:update:sync": "node --loader ts-node/esm ./bin/dev sync",
+    "test:update:sync:silent": "node --loader ts-node/esm ./bin/dev sync --silent"
+  },
+  "bin": {
+    "figex": "./bin/run.js"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^3.3.0",
+    "@oclif/core": "^3",
+    "@oclif/plugin-help": "^5",
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.1.1",
+    "got": "^13.0.0",
+    "listr2": "^7.0.2",
+    "svgo": "^3.0.4"
+  },
+  "devDependencies": {
+    "@oclif/prettier-config": "^0.2.1",
+    "@oclif/test": "^3",
+    "@types/chai": "^4.3.11",
+    "@types/fs-extra": "^11.0.4",
+    "@types/mocha": "^10",
+    "@types/node": "^18",
+    "chai": "^4",
+    "eslint": "^8",
+    "eslint-config-oclif": "^5",
+    "eslint-config-oclif-typescript": "^3",
+    "eslint-config-prettier": "^9.0.0",
+    "mocha": "^10",
+    "oclif": "^4.0.3",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "dist",
+    "oclif.manifest.json"
+  ],
+  "main": "dist/index.js",
+  "oclif": {
+    "bin": "figex",
+    "dirname": "figex",
+    "commands": "./dist/commands",
+    "scope": "@cli107",
+    "plugins": [
+      "@oclif/plugin-help"
+    ],
+    "topicSeparator": ":",
+    "topics": {
+      "make": {
+        "description": "Say make"
+      },
+      "sync": {
+        "description": "Say sync"
+      }
+    },
+    "macos": {
+      "identifier": "com.figex.cli"
+    },
+    "windows": {
+      "name": "Figex CLI"
+    },
+    "warn-if-update-available": {
+      "timeoutInDays": 7
+    },
+    "exitCodes": {
+      "default": 1,
+      "failedFlagParsing": 2,
+      "failedFlagValidation": 2,
+      "invalidArgsSpec": 2,
+      "nonExistentFlag": 2,
+      "requiredArgs": 2,
+      "unexpectedArgs": 2
+    }
+  },
+  "types": "dist/index.d.ts",
+  "exports": "./dist/index.js",
+  "type": "module",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  }
+}
