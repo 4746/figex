@@ -3,6 +3,10 @@ figex
 
 Figma export CLI
 
+[![NPM version](http://img.shields.io/npm/v/@cli107/figex.svg?style=flat-square)](http://npmjs.org/package/@cli107/figex)
+[![GitHub license](https://img.shields.io/github/license/4746/figex)](https://github.com/4746/figex/blob/main/LICENSE)
+
+
 <!-- toc -->
 * [Usage](#usage)
 * [Commands](#commands)
