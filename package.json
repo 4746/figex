@@ -1,7 +1,7 @@
 {
   "name": "@cli107/figex",
   "description": "Figma export svg",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Vadim",
   "keywords": [
     "figma-export",
