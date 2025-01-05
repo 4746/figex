@@ -58,7 +58,7 @@ function createEnumPHP(
     phpUse ? `use ${phpUse};\n\n` : '\n',
     `const SVG_BUILD_VERSION = "${buildVersion}";\n\n`,
     `enum ${nameExportType}: string\n{\n`,
-    phpUseName ? `    use ${phpUseName};\n` : '',
+    phpUseName ? `    use ${phpUseName};\n\n` : '',
   ];
 
   const caseNames = names.map((name) => {
@@ -69,7 +69,16 @@ function createEnumPHP(
     return `    case ${camelCaseName.join('')} = '${name}';`;
   });
 
-  data.push(caseNames.join('\n'), '\n}\n')
+  data.push(
+    caseNames.join('\n'),
+    '\n',
+    '\n    public static function version(): string\n',
+    '    {\n',
+    '        return SVG_BUILD_VERSION;\n',
+    '    }',
+    '\n}\n'
+  )
+  // data.push(caseNames.join('\n'), '\n}\n')
 
   return data.join('');
 }
