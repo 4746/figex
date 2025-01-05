@@ -29,6 +29,7 @@ export default class Sync extends Command {
   static flags = {
     fileId: Flags.string({description: 'Figma fileId or create env.FIGMA_FILE_ID',  env: 'FIGMA_FILE_ID', requiredOrDefaulted: false}),
     nameExportType: Flags.string({description: 'Name enum .ts or .php', requiredOrDefaulted: false}),
+    prefixExportType: Flags.string({description: 'Prefix enum', requiredOrDefaulted: false}),
     pathFileTypeTS: Flags.string({description: 'Name enum .ts', requiredOrDefaulted: false}),
     pathFileTypePHP: Flags.string({description: 'Name enum .php', requiredOrDefaulted: false}),
     page: Flags.string({description: '...', env: 'FIGMA_PAGE', requiredOrDefaulted: false}),
@@ -44,6 +45,7 @@ export default class Sync extends Command {
   private conf: IFigmaDefaultConf;
   private fileId: string;
   private nameExportType: string;
+  private prefixExportType: string;
   private pathFileTypeTS: string;
   private pathFileTypePHP: string;
   private page: string;
@@ -66,22 +68,26 @@ export default class Sync extends Command {
       phpNamespace: this.phpNamespace,
       phpUse: this.phpUse,
     }
+
     if (this.pathFileType) {
       await createSvgTypes({
         ...p,
         pathFileType: this.pathFileType,
+        nameExportType: this.prefixExportType ? `E${this.prefixExportType}` : this.nameExportType,
       });
     }
     if (this.pathFileTypeTS) {
       await createSvgTypes({
         ...p,
         pathFileType: this.pathFileTypeTS,
+        nameExportType: this.prefixExportType ? `T${this.prefixExportType}` : this.nameExportType,
       });
     }
     if (this.pathFileTypePHP) {
       await createSvgTypes({
         ...p,
         pathFileType: this.pathFileTypePHP,
+        nameExportType: this.prefixExportType ? `E${this.prefixExportType}` : this.nameExportType,
       });
     }
   }
@@ -224,6 +230,7 @@ export default class Sync extends Command {
     }
 
     this.nameExportType = flags?.nameExportType ?? this.conf.nameExportType;
+    this.prefixExportType = flags?.prefixExportType ?? this.conf.prefixExportType;
     this.phpNamespace = flags?.phpNamespace ?? this.conf.phpNamespace;
     this.phpUse = flags?.phpUse ?? this.conf.phpUse;
     this.silent = flags.silent;
