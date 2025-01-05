@@ -63,7 +63,7 @@ EXAMPLES
   $ figex make:config
 ```
 
-_See code: [src/commands/make/config.ts](https://github.com/4746/figex/blob/v0.0.3/src/commands/make/config.ts)_
+_See code: [src/commands/make/config.ts](https://github.com/4746/figex/blob/v0.0.4/src/commands/make/config.ts)_
 
 ## `figex sync`
 
@@ -71,20 +71,21 @@ Sync svg icons
 
 ```
 USAGE
-  $ figex sync [--fileId <value>] [--nameExportType <value>] [--pathFileTypeTS <value>] [--pathFileTypePHP
-    <value>] [--page <value>] [--pathFileSprite <value>] [--pathFileType <value>] [--phpNamespace <value>] [--phpUse
-    <value>] [--showResultTable] [--silent] [--token <value>]
+  $ figex sync [--fileId <value>] [--nameExportType <value>] [--prefixExportType <value>]
+    [--pathFileTypeTS <value>] [--pathFileTypePHP <value>] [--page <value>] [--pathFileSprite <value>] [--pathFileType
+    <value>] [--phpNamespace <value>] [--phpUse <value>] [--showResultTable] [--silent] [--token <value>]
 
 FLAGS
-  --fileId=<value>           Figma fileId or create env.FIGMA_FILE_ID
-  --nameExportType=<value>   Name enum .ts or .php
-  --page=<value>             ...
-  --pathFileSprite=<value>   Represents the path to a sprite svg file.
-  --pathFileType=<value>     Represents the file type of a given path.
-  --pathFileTypePHP=<value>  Name enum .php
-  --pathFileTypeTS=<value>   Name enum .ts
-  --phpNamespace=<value>     The PHP namespace represents the namespace of a PHP enum file.
-  --phpUse=<value>           Extend enum via use OtherEnums
+  --fileId=<value>            Figma fileId or create env.FIGMA_FILE_ID
+  --nameExportType=<value>    Name enum .ts or .php
+  --page=<value>              ...
+  --pathFileSprite=<value>    Represents the path to a sprite svg file.
+  --pathFileType=<value>      Represents the file type of a given path.
+  --pathFileTypePHP=<value>   Name enum .php
+  --pathFileTypeTS=<value>    Name enum .ts
+  --phpNamespace=<value>      The PHP namespace represents the namespace of a PHP enum file.
+  --phpUse=<value>            Extend enum via use OtherEnums
+  --prefixExportType=<value>  Prefix enum
   --showResultTable
   --silent
   --token=<value>
@@ -96,7 +97,7 @@ EXAMPLES
   $ figex sync --help
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v0.0.3/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v0.0.4/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 

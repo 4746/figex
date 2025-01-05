@@ -11,6 +11,7 @@ export interface IFigmaDefaultConf {
   designSystem: IFigmaDefaultConfDesignSystem,
   fileId: string,
   nameExportType?: string,
+  prefixExportType?: string,
   page: string,
   pathFileSprite?: string;
   /**
