@@ -29,6 +29,8 @@ export default class Sync extends Command {
   static flags = {
     fileId: Flags.string({description: 'Figma fileId or create env.FIGMA_FILE_ID',  env: 'FIGMA_FILE_ID', requiredOrDefaulted: false}),
     nameExportType: Flags.string({description: 'Name enum .ts or .php', requiredOrDefaulted: false}),
+    pathFileTypeTS: Flags.string({description: 'Name enum .ts', requiredOrDefaulted: false}),
+    pathFileTypePHP: Flags.string({description: 'Name enum .php', requiredOrDefaulted: false}),
     page: Flags.string({description: '...', env: 'FIGMA_PAGE', requiredOrDefaulted: false}),
     pathFileSprite: Flags.string({description: 'Represents the path to a sprite svg file.', requiredOrDefaulted: false}),
     pathFileType: Flags.string({description: 'Represents the file type of a given path.', requiredOrDefaulted: false}),
@@ -42,6 +44,8 @@ export default class Sync extends Command {
   private conf: IFigmaDefaultConf;
   private fileId: string;
   private nameExportType: string;
+  private pathFileTypeTS: string;
+  private pathFileTypePHP: string;
   private page: string;
   private pathFileSprite: string;
   /**
@@ -54,16 +58,32 @@ export default class Sync extends Command {
   private silent: boolean;
 
   private taskCreatingTypingFile = async (ctx: TakeSvgCtxTask)=> {
-    const buildVersion = getBuildVersion(this.config.pjson.version);
-
-    await createSvgTypes({
-      buildVersion,
+    const p = {
+      pathFileType: null,
+      buildVersion: getBuildVersion(this.config.pjson.version),
       nameExportType: this.nameExportType,
       names: ctx.typeIcons.map(v => v.typeName).sort(),
-      pathFileType: this.pathFileType,
       phpNamespace: this.phpNamespace,
-      phpUse: this.phpUse
-    });
+      phpUse: this.phpUse,
+    }
+    if (this.pathFileType) {
+      await createSvgTypes({
+        ...p,
+        pathFileType: this.pathFileType,
+      });
+    }
+    if (this.pathFileTypeTS) {
+      await createSvgTypes({
+        ...p,
+        pathFileType: this.pathFileTypeTS,
+      });
+    }
+    if (this.pathFileTypePHP) {
+      await createSvgTypes({
+        ...p,
+        pathFileType: this.pathFileTypePHP,
+      });
+    }
   }
 
   private taskDownloadAllSvg = async (ctx: TakeSvgCtxTask)=> {
@@ -124,7 +144,7 @@ export default class Sync extends Command {
         title: 'Download all svg'
       },
       {
-        skip: (ctx) => !ctx?.typeIcons || !this.pathFileType,
+        skip: (ctx) => !ctx?.typeIcons || (!this.pathFileType && !this.pathFileTypeTS && !this.pathFileTypePHP),
         task: this.taskCreatingTypingFile,
         title: 'Creating a typing file'
       },
@@ -212,6 +232,14 @@ export default class Sync extends Command {
     this.pathFileType = flags?.pathFileType ?? this.conf.pathFileType;
     if (this.pathFileType) {
       this.pathFileType = path.join(process.cwd(), this.pathFileType);
+    }
+    this.pathFileTypeTS = flags?.pathFileTypeTS ?? this.conf.pathFileTypeTS;
+    if (this.pathFileTypeTS) {
+      this.pathFileTypeTS = path.join(process.cwd(), this.pathFileTypeTS);
+    }
+    this.pathFileTypePHP = flags?.pathFileTypePHP ?? this.conf.pathFileTypePHP;
+    if (this.pathFileTypeTS) {
+      this.pathFileTypePHP = path.join(process.cwd(), this.pathFileTypePHP);
     }
 
     this.pathFileSprite = flags?.pathFileSprite ?? this.conf.pathFileSprite;

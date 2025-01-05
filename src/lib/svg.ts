@@ -77,6 +77,10 @@ function createEnumPHP(
 export async function createSvgTypes({buildVersion, nameExportType, names, pathFileType, phpNamespace, phpUse}: {buildVersion: string, nameExportType: string, names: string[], pathFileType: string, phpNamespace: string, phpUse: string}) {
   const PlatformPath = path.parse(pathFileType);
 
+  if (!fs.existsSync(PlatformPath.dir)) {
+    await fs.promises.mkdir(PlatformPath.dir, {recursive: true})
+  }
+
   const stat = await fs.promises.stat(PlatformPath.dir);
   if (stat.isFile()) {
     throw new Error(`is not a folder: [${PlatformPath.dir}]`);
@@ -167,6 +171,11 @@ export async function createSvgSprite({pathFileSprite, typeIcons}: {pathFileSpri
   const promiseSymbols = typeIcons.map((item => readSvgDesignSystemIcon(item)))
 
   const svgSymbols = await Promise.all(promiseSymbols);
+
+  const PlatformPath = path.parse(pathFileSprite);
+  if (!fs.existsSync(PlatformPath.dir)) {
+    await fs.promises.mkdir(PlatformPath.dir, {recursive: true})
+  }
 
   return saveSvgSprite({
     contentSymbol: svgSymbols.filter(Boolean).sort((a, b) => {

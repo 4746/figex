@@ -17,6 +17,8 @@ export interface IFigmaDefaultConf {
    * The path to the typing file
    */
   pathFileType?: string;
+  pathFileTypeTS?: string,
+  pathFileTypePHP?: string,
   personalToken: string,
   /**
    * The PHP namespace represents the namespace of a PHP enum file.
