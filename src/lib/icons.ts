@@ -8,27 +8,41 @@ import {downloadImage} from "./download-image.js";
 import {IFigmaImageFileResponse} from "./entities/figma.js";
 import {IFigmaIcon} from "./entities/icons.js";
 
+const chunkArray = <T>(array: T[], chunkSize: number):  T[][] => {
+  const chunks = [];
+  for (let i = 0; i < array.length; i += chunkSize) {
+    chunks.push(array.slice(i, i + chunkSize));
+  }
+  return chunks;
+};
 
 export async function downloadListIcons({fileId, icons, personalToken}: {fileId: string, icons: IFigmaIcon[], personalToken: string}) {
-  const iconIds = icons.map(icon => icon.id).join(',');
+  const chunks = chunkArray(icons, 300);
 
-  const response = await got.get(`images/${fileId}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Figma-Token': personalToken
-    },
-    prefixUrl: FIGMA_API_BASE,
-    searchParams: {
-      format: 'svg',
-      ids: iconIds
-    }
-  }).json<IFigmaImageFileResponse>();
+  const allResponses = await Promise.all(chunks.map(async (chunk) => {
+    return got.get(`images/${fileId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Figma-Token': personalToken
+      },
+      prefixUrl: FIGMA_API_BASE,
+      searchParams: {
+        format: 'svg',
+        ids: chunk.map(icon => icon.id).join(',')
+      }
+    }).json<IFigmaImageFileResponse>();
+  }));
 
-  if (!response) {
-    throw new Error(`Download list icons`);
-  }
+  // Combination of results
+  const images = allResponses.flatMap<Record<string, string>>(response => response?.images)
+    .reduce((acc, record) => {
+      Object.entries(record).forEach(([key, value]) => {
+        // Add a value to an existing key or create a new one
+        acc[key] = acc[key] ? `${acc[key]},${value}` : value;
+      });
 
-  const {images} = response
+      return acc;
+    }, {} as Record<string, string>)
 
   return icons.map((icon) => {
     if (!icon.name || !(/^[\d_a-z-]+$/.test(icon.name))) {
