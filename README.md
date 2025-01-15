@@ -63,7 +63,7 @@ EXAMPLES
   $ figex make:config
 ```
 
-_See code: [src/commands/make/config.ts](https://github.com/4746/figex/blob/v0.0.4/src/commands/make/config.ts)_
+_See code: [src/commands/make/config.ts](https://github.com/4746/figex/blob/v1.0.0/src/commands/make/config.ts)_
 
 ## `figex sync`
 
@@ -97,7 +97,7 @@ EXAMPLES
   $ figex sync --help
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v0.0.4/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v1.0.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 
@@ -158,4 +158,20 @@ export type TSvgOrNever  = TSvg | never;
 	<symbol id='section.arrow_right' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill="currentColor" fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" clip-rule="evenodd"/></symbol>
 	<symbol id='section.arrow_upward' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill="currentColor" d="M7.333 13.333V5.217L3.6 8.95 2.667 8 8 2.667 13.333 8l-.933.95-3.733-3.733v8.116z"/></symbol>
 </svg>
+```
+
+
+---
+
+## Example include svg file  `sprite-icons.svg`
+```typescript
+// <link rel="preload" href="/assets/sprite-icons.svg?v=0.1" as="image" type="image/svg+xml">
+const headAppendIconPack = (): void => {
+  const link = document.createElement('link');
+  link.rel = 'preload';
+  link.href = `/assets/sprite-icons.svg?v=${SVG_BUILD_VERSION}`;
+  link.as = 'image';
+  link.type = 'image/svg+xml';
+  document.head.appendChild(link);
+};
 ```
