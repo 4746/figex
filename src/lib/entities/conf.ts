@@ -8,27 +8,27 @@ export interface IFigmaDefaultConfDesignSystem {
 }
 
 export interface IFigmaDefaultConf {
-  designSystem: IFigmaDefaultConfDesignSystem,
-  fileId: string,
-  nameExportType?: string,
-  prefixExportType?: string,
-  page: string,
+  designSystem: IFigmaDefaultConfDesignSystem;
+  fileId: string;
+  nameExportType?: string;
+  page: string;
   pathFileSprite?: string;
   /**
    * The path to the typing file
    */
   pathFileType?: string;
-  pathFileTypeTS?: string,
-  pathFileTypePHP?: string,
-  personalToken: string,
+  pathFileTypePHP?: string;
+  pathFileTypeTS?: string;
+  personalToken: string;
   /**
    * The PHP namespace represents the namespace of a PHP enum file.
    */
-  phpNamespace: string,
+  phpNamespace: string;
   /**
    * Extend enum via use OtherEnums
    */
-  phpUse: string,
-  removeFromName: string,
+  phpUse: string;
+  prefixExportType?: string;
+  removeFromName: string;
 }
 
