@@ -10,6 +10,7 @@ export const DEFAULT_CONF: IFigmaDefaultConf = {
       SetYourFrameName: {
         path: 'src/assets/svg/{setYourFrameName}',
         prefix: 'YourPrefix',
+        skipSprite: false,
       }
     }
   },

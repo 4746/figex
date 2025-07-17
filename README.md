@@ -63,7 +63,7 @@ EXAMPLES
   $ figex make:config
 ```
 
-_See code: [src/commands/make/config.ts](https://github.com/4746/figex/blob/v1.0.0/src/commands/make/config.ts)_
+_See code: [src/commands/make/config.ts](https://github.com/4746/figex/blob/v1.1.0/src/commands/make/config.ts)_
 
 ## `figex sync`
 
@@ -71,9 +71,9 @@ Sync svg icons
 
 ```
 USAGE
-  $ figex sync [--fileId <value>] [--nameExportType <value>] [--prefixExportType <value>]
-    [--pathFileTypeTS <value>] [--pathFileTypePHP <value>] [--page <value>] [--pathFileSprite <value>] [--pathFileType
-    <value>] [--phpNamespace <value>] [--phpUse <value>] [--showResultTable] [--silent] [--token <value>]
+  $ figex sync [--fileId <value>] [--nameExportType <value>] [--page <value>] [--pathFileSprite <value>]
+    [--pathFileType <value>] [--pathFileTypePHP <value>] [--pathFileTypeTS <value>] [--phpNamespace <value>] [--phpUse
+    <value>] [--prefixExportType <value>] [--showResultTable] [--silent] [--token <value>]
 
 FLAGS
   --fileId=<value>            Figma fileId or create env.FIGMA_FILE_ID
@@ -97,7 +97,7 @@ EXAMPLES
   $ figex sync --help
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v1.0.0/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v1.1.0/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 
@@ -114,7 +114,8 @@ _See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v1.0.0/src/
       },
       "section": {
         "path": "dist/svg/section",
-        "prefix": "section"
+        "prefix": "section",
+        "skipSprite": true
       }
     }
   },

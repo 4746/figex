@@ -11,6 +11,8 @@ export interface IFigmaIconType {
   filename: string;
   name: string;
   path: string;
+  projectPrefix: string;
   size: string;
+  skipSprite: boolean;
   typeName: string;
 }
