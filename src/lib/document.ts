@@ -10,7 +10,12 @@ import {IFigmaDocumentChildren} from "./entities/document.js";
 import {IFigmaFileResponse} from "./entities/figma.js";
 import {IFigmaIcon} from "./entities/icons.js";
 
-
+/**
+ * Clears the specified design system project directory by removing its contents and recreating it.
+ *
+ * @param {string} projectPath - The file system path to the design system project directory to be cleared.
+ * @return {Promise<void>} A promise that resolves when the directory has been successfully cleared and recreated.
+ */
 export async function clearDesignSystemProject(projectPath: string) {
   if (fs.existsSync(projectPath)) {
     await fs.promises.rm(projectPath, { maxRetries: 10, recursive: true });
@@ -19,6 +24,12 @@ export async function clearDesignSystemProject(projectPath: string) {
   return fs.promises.mkdir(projectPath, {recursive: true});
 }
 
+/**
+ * Clears the design system configuration for the provided project list.
+ *
+ * @param {IFigmaDefaultConfProject[]} projects - An array of project objects, each containing information necessary for clearing the design system configuration.
+ * @return {Promise<Array>} A promise that resolves to an array of results from each cleared design system project operation.
+ */
 export async function clearDesignSystem(projects: IFigmaDefaultConfProject[]) {
   return projects.map((item) => clearDesignSystemProject(path.join(process.cwd(), item.path)))
 }
@@ -98,6 +109,13 @@ function getPathToFrame(root: IFigmaDocumentChildren, current: string[]): IFigma
   return getPathToFrame(foundChild, pathFrame);
 }
 
+/**
+ * Identifies duplicate objects within an array based on the specified property name and renames the duplicates to make them unique.
+ *
+ * @param {string} propertyName - The name of the property to check for duplicates.
+ * @param {IFigmaIcon[]} arr - The array of objects to be evaluated for duplicates.
+ * @return {IFigmaIcon[]} - Returns a new array with updated objects, ensuring no duplicate values exist for the given property name.
+ */
 function findDuplicates(propertyName: string, arr: IFigmaIcon[]): IFigmaIcon[] {
   let IDX = 1;
   return arr.reduce((acc, current) => {

@@ -1,7 +1,14 @@
 export type TFigmaFrameName = string;
 export interface IFigmaDefaultConfProject {
+  /**
+   * the path to the folder where to store svg
+   */
   path: string;
   prefix: string;
+  /**
+   * do not add this project to the base sprite file
+   */
+  skipSprite?: boolean;
 }
 export interface IFigmaDefaultConfDesignSystem {
   projects: Record<TFigmaFrameName, IFigmaDefaultConfProject>

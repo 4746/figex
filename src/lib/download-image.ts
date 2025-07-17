@@ -38,7 +38,9 @@ export async function downloadImage({name, pathIcon, personalToken, project, url
     filename: `${name}.svg`,
     name,
     path: imagePath,
+    projectPrefix: project.prefix,
     size: (stats.size / 1024).toFixed(2) + ' KiB',
+    skipSprite: project.skipSprite === true,
     typeName: [project.prefix, name].join('.')
   };
 }

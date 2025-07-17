@@ -66,5 +66,7 @@ export async function downloadAllIcons({icons, personalToken, removeFromName}: {
       })
   );
 
-  return Promise.all(AllIcons)
+  return Promise.all(AllIcons).then(rows => {
+    return rows.filter(icon => !icon?.skipSprite);
+  })
 }
