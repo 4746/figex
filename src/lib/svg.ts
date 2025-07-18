@@ -198,6 +198,17 @@ export async function createSvgSprite({pathFileSprite, typeIcons}: {pathFileSpri
   });
 }
 
+function simpleHash(str: string) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    // eslint-disable-next-line no-bitwise
+    hash = (hash << 5) - hash + str.codePointAt(i);
+    hash = Math.trunc(hash); // Leads to a 32-bit int
+  }
+
+  return Math.abs(hash).toString(16); // hex row
+}
+
 /**
  * Saves an SVG sprite file with specified symbols.
  *
@@ -207,13 +218,11 @@ export async function createSvgSprite({pathFileSprite, typeIcons}: {pathFileSpri
  * @return {Promise<string>} - A promise that resolves with the path of the saved SVG sprite file.
  */
 export async function saveSvgSprite({contentSymbol, pathSprite}: {contentSymbol: string[], pathSprite: string}): Promise<string> {
-  const template = path.resolve(pathSprite);
+  let template = path.resolve(pathSprite);
 
   const dirSprite = path.dirname(template)
 
-  if (!fs.existsSync(dirSprite)) {
-    await fs.promises.mkdir(dirSprite, {recursive: true})
-  }
+
 
   const newContent = [
     '<?xml version="1.0" encoding="utf-8"?>',
@@ -221,6 +230,17 @@ export async function saveSvgSprite({contentSymbol, pathSprite}: {contentSymbol:
     '\t' + contentSymbol.join('\n\t'),
     '</svg>',
   ].join('\n');
+
+
+  const hash = simpleHash(newContent);
+
+  if (hash) {
+    template = template.replaceAll('{hash}', `${hash}`)
+  }
+
+  if (!fs.existsSync(dirSprite)) {
+    await fs.promises.mkdir(dirSprite, {recursive: true})
+  }
 
   await fs.promises.writeFile(template, newContent, 'utf8');
 
