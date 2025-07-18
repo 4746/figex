@@ -63,7 +63,7 @@ EXAMPLES
   $ figex make:config
 ```
 
-_See code: [src/commands/make/config.ts](https://github.com/4746/figex/blob/v1.1.0/src/commands/make/config.ts)_
+_See code: [src/commands/make/config.ts](https://github.com/4746/figex/blob/v1.1.1/src/commands/make/config.ts)_
 
 ## `figex sync`
 
@@ -97,7 +97,7 @@ EXAMPLES
   $ figex sync --help
 ```
 
-_See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v1.1.0/src/commands/sync.ts)_
+_See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v1.1.1/src/commands/sync.ts)_
 <!-- commandsstop -->
 
 
@@ -126,6 +126,7 @@ _See code: [src/commands/sync.ts](https://github.com/4746/figex/blob/v1.1.0/src/
   "nameExportType": "TSvg",
   "pathFileType": "dist/svg/svg.enum.ts",
   "pathFileSprite": "dist/svg/sprite-icons.svg"
+  // or dist/svg/sprite-icon-{hash}.svg
 }
 ```
 
